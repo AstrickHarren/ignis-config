@@ -5,21 +5,19 @@ from ignis.services.hyprland import HyprlandService
 
 hyprland = HyprlandService.get_default()
 
-class WorkspaceButton(Widget.Button):
-    def __init__(self, workspace: dict) -> None:
-        super().__init__(
-            css_classes=["workspace", "unset"],
-            on_click=lambda x, id=workspace["id"]: hyprland.switch_to_workspace(id),
-            halign="start",
-            valign="center",
-        )
-        if workspace["id"] == hyprland.active_workspace["id"]:
-            self.add_css_class("active")
-        elif workspace["monitorID"] != hyprland.active_workspace["monitorID"]:
-            self.add_css_class("inactive")
+def workspace_btn(workspace: dict):
+    css = ["workspace", "unset"]; 
+    if workspace["id"] == hyprland.active_workspace["id"]:
+        css.append("active")
+    elif workspace["monitorID"] != hyprland.active_workspace["monitorID"]:
+        css.append("inactive")
 
-
-
+    return Widget.Button(
+        css_classes=css,
+        on_click=lambda x, id=workspace["id"]: hyprland.switch_to_workspace(id),
+        halign="start",
+        valign="center",
+    )
 
 def scroll_workspaces(direction: str) -> None:
     current = hyprland.active_workspace["id"]
@@ -41,7 +39,7 @@ def workspaces():
         visible=hyprland.is_available,
         child=hyprland.bind(
             "workspaces",
-            transform=lambda value: [WorkspaceButton(i) for i in value],
+            transform=lambda value: [workspace_btn(i) for i in value],
         ),
     )
 
