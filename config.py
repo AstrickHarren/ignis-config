@@ -11,6 +11,7 @@ from ignis.services.niri import NiriService
 from ignis.services.notifications import NotificationService
 from ignis.services.mpris import MprisService, MprisPlayer
 
+from modules.clock import clock
 from modules.workspaces import workspaces
 
 app = IgnisApp.get_default()
@@ -36,6 +37,7 @@ def bar(monitor_id: int = 0) -> Widget.Window:
         child=Widget.CenterBox(
             css_classes=["bar"],
             center_widget=Widget.Box(child = [workspaces()]),
+            end_widget = Widget.Box(child = [clock(monitor_id)]),
         ),
     )
 

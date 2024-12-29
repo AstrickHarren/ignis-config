@@ -1,13 +1,14 @@
 * {
     all: unset;
     font-weight: bold;
+    font-family: SF Pro Display,
 }
 
 @import "./scss/palette.scss";
 @import "./scss/utils.scss";
 
 .bar {
-    padding: 0.4rem 1rem;
+    padding: 0.4rem 2rem;
     background-color: $bg;
     color: $onBg;
 }
@@ -22,7 +23,7 @@
 }
 
 .workspace {
-    @include hover($onSurface);
+    @include hover($onSecondary);
     border-radius: 1rem;
     margin: 0 0.25rem;
     min-width: 0.7rem;
@@ -36,6 +37,29 @@
     &.active {
         @include hover($onSurface);
         min-width: 2rem;
+    }
+}
+
+.clock {
+    @include hover($surface);
+    color: $onSurface;
+    background-color: $surface;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    padding: 0 0.75rem;
+    margin: 0 0.5rem;
+    margin-right: 0;
+    transition: 0.3s;
+
+    &.active {
+        background-color: $primary;
+        color: $surface;
+
+        .record-indicator {
+            color: $surface;
+        }
+
+        @include hover($primary)
     }
 }
 
