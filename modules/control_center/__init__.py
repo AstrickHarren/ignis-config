@@ -2,6 +2,7 @@
 
 from ignis.app import IgnisApp
 from ignis.widgets import Widget
+from modules.control_center.quick_settings import quick_settings
 
 app = IgnisApp.get_default()
 
@@ -14,7 +15,7 @@ def control_center_widget() -> Widget.Box:
             Widget.Box(
                 vertical=True,
                 css_classes=["control-center-widget"],
-                child=[Widget.Label(label="hello, world")],
+                child=[quick_settings()],
             ),
         ],
     )

@@ -11,12 +11,7 @@ image {
 
 @import "./scss/palette.scss";
 @import "./scss/utils.scss";
-
-.control-center {
-    @include window;
-    min-width: 28rem;
-    padding: 0;
-}
+@import "./scss/control_center.scss";
 
 .bar {
     padding: 0.6rem 2rem;
