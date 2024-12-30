@@ -1,14 +1,25 @@
 * {
     all: unset;
+    font-size: 1.4rem;
     font-weight: bold;
     font-family: SF Pro Display,
+}
+
+image {
+    -gtk-icon-transform: scale(1.2);
 }
 
 @import "./scss/palette.scss";
 @import "./scss/utils.scss";
 
+.control-center {
+    @include window;
+    min-width: 28rem;
+    padding: 0;
+}
+
 .bar {
-    padding: 0.4rem 2rem;
+    padding: 0.6rem 2rem;
     background-color: $bg;
     color: $onBg;
 }
