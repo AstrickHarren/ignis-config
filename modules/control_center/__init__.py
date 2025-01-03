@@ -2,6 +2,7 @@
 
 from ignis.app import IgnisApp
 from ignis.widgets import Widget
+from modules.control_center.notification_center import NotificationCenter
 from modules.control_center.quick_settings import quick_settings
 from modules.control_center.volume import VolumeSlider
 
@@ -23,6 +24,7 @@ def control_center_widget() -> Widget.Box:
                     quick_settings(),
                 ],
             ),
+            NotificationCenter(),
         ],
     )
 
