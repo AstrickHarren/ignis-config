@@ -20,8 +20,9 @@ class QuickSetting(PanelToggle):
             child=[
                 Widget.Icon(
                     halign="start",
+                    valign="center",
                     icon_name=icon_name,
-                    css_classes=["round-full", "p-5", "m-3", "bg-blue"],
+                    css_classes=["round-full", "p-5", "bg-blue"],
                     pixel_size=18,
                 ),  # type: ignore
                 Widget.Box(
