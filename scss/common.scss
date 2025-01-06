@@ -90,6 +90,10 @@ $red: #ff3b30ff;
 }
 
 @for $i from 0 through 4 {
+  .border-#{$i * 2} {
+    border-width: #{$i * 2}px;
+  }
+
   .border-b-#{$i * 2} {
     border-bottom-width: #{$i * 2}px;
   }
@@ -104,6 +108,14 @@ $red: #ff3b30ff;
 
   .p-#{$i}\.5 {
     padding: #{$i * 0.25 + 0.125}rem;
+  }
+
+  .pb-#{$i} {
+    padding-bottom: #{$i * 0.25}rem;
+  }
+
+  .pb-#{$i}\.5 {
+    padding-bottom: #{$i * 0.25 + 0.125}rem;
   }
 }
 

@@ -3,34 +3,16 @@ from ignis.services.bluetooth import BluetoothDevice, BluetoothService
 from ignis.services.network import NetworkService, WifiAccessPoint, WifiDevice
 from ignis.variable import Variable
 from ignis.widgets import Widget, label
-from modules.control_center.menu import Menu
-from modules.control_center.qs_button import QSButton
-from modules.ctrl_center.ctrl_panel import PanelToggle
+from modules.ctrl_center.list import Item
 from modules.ctrl_center.quick_setting import QuickSetting
 
 
-class BluetoothItem(Widget.Button):
+class BluetoothItem(Item):
     def __init__(self, dev: BluetoothDevice):
         super().__init__(
-            css_classes=["wifi-network_item", "unset"],
-            on_click=lambda x: dev.connect_to(),
-            child=Widget.Box(
-                child=[
-                    Widget.Icon(
-                        image=dev.icon_name,
-                    ),
-                    Widget.Label(
-                        label=dev.name,
-                        halign="start",
-                    ),
-                    Widget.Icon(
-                        image="object-select-symbolic",
-                        halign="end",
-                        hexpand=True,
-                        visible=dev.bind("connected"),
-                    ),
-                ]
-            ),
+            checked=dev.bind("connected"),
+            label=dev.bind("name"),
+            icon_name=dev.bind("icon_name"),
         )
 
 

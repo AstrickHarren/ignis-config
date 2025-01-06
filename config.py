@@ -10,7 +10,7 @@ from modules.notification import NotificationPopup
 app = IgnisApp.get_default()
 app.apply_css(f"{Utils.get_current_dir()}/style.scss")
 
-ControlCenter(child=[Panel([Wifi(), Bluetooth()])])
+ControlCenter([Panel([Wifi(), Bluetooth()])])
 for monitor in range(Utils.get_n_monitors()):
     bar(monitor)
 for monitor in range(Utils.get_n_monitors()):

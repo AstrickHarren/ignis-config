@@ -41,6 +41,7 @@ class QuickSetting(PanelToggle):
                     ],
                 ),
                 Widget.Arrow(
+                    css_classes=["txt-2"],
                     halign="end",
                     hexpand=True,
                     pixel_size=20,

@@ -10,7 +10,7 @@ app = IgnisApp.get_default()
 
 
 class ControlCenter(Widget.RevealerWindow):
-    def __init__(self, child: list[BaseWidget]):
+    def __init__(self, child):
         revealer = Widget.Revealer(
             transition_type="slide_left",
             child=Widget.Box(
