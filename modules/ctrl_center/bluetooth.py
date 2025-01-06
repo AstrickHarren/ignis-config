@@ -43,14 +43,17 @@ class Bluetooth(QuickSetting):
             label=self.service.bind(
                 "connected_devices",
                 lambda devs: (
-                    f"{len(devs)} devices" if len(devs) > 0 else "not connected"
+                    f"{len(devs)} devices" if len(devs) > 0 else "Not connected"
                 ),
             ),
-            target=Widget.Box(
-                vertical=True,
-                child=self.service.bind(
-                    "devices",
-                    lambda devs: [BluetoothItem(dev) for dev in devs if dev.name],
+            target=Widget.Scroll(
+                height_request=400,
+                child=Widget.Box(
+                    vertical=True,
+                    child=self.service.bind(
+                        "devices",
+                        lambda devs: [BluetoothItem(dev) for dev in devs if dev.name],
+                    ),
                 ),
             ),
         )

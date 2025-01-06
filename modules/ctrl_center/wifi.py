@@ -9,23 +9,41 @@ from modules.ctrl_center.quick_setting import QuickSetting
 class WifiItem(Widget.Button):
     def __init__(self, ap: WifiAccessPoint):
         super().__init__(
+            hexpand=True,
             on_click=lambda _: ap.connect_to(),
             child=Widget.Box(
+                css_classes=["my-2", "p-2"],
+                hexpand=True,
                 child=[
                     Widget.Icon(
-                        image=ap.bind("strength", transform=lambda _: ap.icon_name),
-                    ),
-                    Widget.Label(
-                        label=ap.ssid,
-                        halign="start",
-                    ),
-                    Widget.Icon(
+                        css_classes=["w-10"],
                         image="object-select-symbolic",
-                        halign="end",
-                        hexpand=True,
                         visible=ap.bind("is_connected"),
+                        pixel_size=18,
                     ),
-                ]
+                    Widget.Box(
+                        css_classes=["w-10"],
+                        visible=ap.bind("is_connected", lambda x: not x),
+                    ),
+                    Widget.Box(
+                        css_classes=["border-b-2", "border-solid", "border-separator"],
+                        hexpand=True,
+                        child=[
+                            Widget.Label(
+                                label=ap.ssid,
+                                halign="start",
+                                css_classes=["txt"],
+                            ),
+                            Widget.Icon(
+                                hexpand=True,
+                                halign="end",
+                                image=ap.bind(
+                                    "strength", transform=lambda _: ap.icon_name
+                                ),
+                            ),
+                        ],
+                    ),
+                ],
             ),
         )
 
@@ -42,10 +60,14 @@ class Wifi(QuickSetting):
             label=self.dev.ap.bind(  # type: ignore
                 "ssid", lambda ssid: ssid if ssid else "Wi-Fi"
             ),
-            target=Widget.Box(
-                vertical=True,
-                child=self.dev.bind(
-                    "access_points", lambda aps: [WifiItem(ap) for ap in aps if ap.ssid]
+            target=Widget.Scroll(
+                height_request=400,
+                child=Widget.Box(
+                    vertical=True,
+                    child=self.dev.bind(
+                        "access_points",
+                        lambda aps: [WifiItem(ap) for ap in aps if ap.ssid],
+                    ),
                 ),
             ),
         )
