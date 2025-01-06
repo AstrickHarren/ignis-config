@@ -62,8 +62,7 @@ class BluetoothButton(QSButton):
             menu.toggle()
 
         super().__init__(
-            label="bluetooth",
-            icon_name="bluetooth-connected",
+            icon_name="network-wireless",
             on_activate=toggle_list,
             on_deactivate=toggle_list,
             active=bluetooth.bind("setup_mode"),

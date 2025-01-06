@@ -1,7 +1,8 @@
 from gi.repository import GObject  # type: ignore
-from ignis.widgets import Widget
-from ignis.variable import Variable
+
 from ignis.base_widget import BaseWidget
+from ignis.variable import Variable
+from ignis.widgets import Widget
 
 opened_menu = Variable()
 
@@ -24,6 +25,8 @@ class Menu(Widget.Revealer):
         )
 
     def toggle(self) -> None:
+        print(f"toggling Menu: {opened_menu}")
+
         if self.reveal_child:
             opened_menu.value = ""
         else:

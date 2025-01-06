@@ -33,7 +33,7 @@ class QSButton(Widget.Button):
             **kwargs,
         )
 
-    def __callback(self, *args) -> None:
+    def __callback(self, *_) -> None:
         if self.active:
             if self.on_deactivate:
                 self.on_deactivate(self)
