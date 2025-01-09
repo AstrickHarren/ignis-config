@@ -5,6 +5,7 @@ from gi.repository import GObject  # type: ignore
 from ignis.gobject import IgnisGObject
 from ignis.services.network import WifiAccessPoint as IgnisWifiAccessPoint
 from ignis.services.network import WifiDevice as IgnisWifiDevice
+from ignis.variable import Variable
 
 
 class RemoteConn(IgnisGObject):
@@ -60,14 +61,16 @@ class WifiAccessPoint(IgnisWifiAccessPoint):
 
 
 class WifiDevice(IgnisWifiDevice):
-    def __init__(self, dev):
+    def __init__(self, dev, pause_scan=Variable(False)):
         super().__init__(dev._device, dev._client)
         self.connecting_to = None
+        self.pending_notification = False
+        self.pause_scan = pause_scan
+        pause_scan.connect("notify::value", lambda x, y: self.notify_pending())
 
     @GObject.Property
     def state(self):
         state = super().state
-        print(f"state change to {state}")
         if not self.connecting_to:
             return state
 
@@ -90,10 +93,26 @@ class WifiDevice(IgnisWifiDevice):
         aps = self._device.get_access_points()
         return [WifiAccessPoint(ap, self) for ap in aps]
 
+    def notify_pending(self):
+        if not self.pause_scan.value and self.pending_notification:
+            print("flushing notification")
+            self.notify("access_points")
+            self.pending_notification = False
+
     @override
     def __add_access_point(self, _, ap, emit=True):
-        if emit:
+        if emit and not self.pause_scan.value:
+            print("notifying access_points")
             self.notify("access-points")
+            self.pending_notification = False
+        elif emit:
+            print("notification pending")
+            self.pending_notification = True
 
     def __remove_access_point(self, device, ap):
-        self.notify("access-points")
+        if not self.pause_scan.value:
+            self.notify("access-points")
+            self.pending_notification = False
+        else:
+            print("notification pending")
+            self.pending_notification = True

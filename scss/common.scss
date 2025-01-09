@@ -22,7 +22,13 @@ $red: #ff3b30ff;
 }
 
 .bg-3 {
-  background-color: #2c2c2e
+  background-color: #2c2c2e;
+}
+
+.hover-bg-3 {
+    &:hover {
+      background-color: #2c2c2e;
+    }
 }
 
 .bg-red {
@@ -110,6 +116,16 @@ $red: #ff3b30ff;
     padding: #{$i * 0.25 + 0.125}rem;
   }
 
+  .px-#{$i} {
+    padding-left: #{$i * 0.25}rem;
+    padding-right: #{$i * 0.25}rem;
+  }
+
+  .px-#{$i}\.5 {
+    padding-left: #{$i * 0.25 + 0.125}rem;
+    padding-right: #{$i * 0.25 + 0.125}rem;
+  }
+
   .pt-#{$i} {
     padding-top: #{$i * 0.25}rem;
   }
@@ -117,6 +133,7 @@ $red: #ff3b30ff;
   .pt-#{$i}\.5 {
     padding-top: #{$i * 0.25 + 0.125}rem;
   }
+
   .pb-#{$i} {
     padding-bottom: #{$i * 0.25}rem;
   }
@@ -184,4 +201,12 @@ $red: #ff3b30ff;
   .w-#{$i}\.5 {
     min-width: #{$i * 0.25 + 0.125}rem;
   }
+}
+
+// ==================== Transition ==================== 
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

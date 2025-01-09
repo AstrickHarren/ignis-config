@@ -22,8 +22,8 @@ class Item(Widget.Button):
 
         super().__init__(
             hexpand=True,
+            css_classes=["hover-bg-3", "transition-all"],
             child=Widget.Box(
-                css_classes=["p-2"],
                 hexpand=True,
                 child=[
                     Widget.Icon(
@@ -38,7 +38,9 @@ class Item(Widget.Button):
                             "border-b-2",
                             "border-solid",
                             "border-separator",
+                            "pt-4",
                             "pb-4",
+                            "px-2",
                         ],
                         hexpand=True,
                         child=[
