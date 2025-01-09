@@ -1,3 +1,4 @@
+from ignis.base_widget import BaseWidget
 from ignis.gobject import Binding
 from ignis.services.network import WifiAccessPoint
 from ignis.widgets import Widget
