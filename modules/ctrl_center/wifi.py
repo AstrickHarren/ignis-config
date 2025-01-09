@@ -1,22 +1,23 @@
 from gi.repository import GLib  # type: ignore
 
 from ignis.gobject import Binding
-from ignis.services.network import NetworkService, WifiAccessPoint, WifiDevice
+from ignis.services.network import NetworkService, WifiAccessPoint
 from ignis.variable import Variable
 from ignis.widgets import Widget
-from modules.ctrl_center.ap import Ap
 from modules.ctrl_center.list import Item
 from modules.ctrl_center.quick_setting import QuickSetting
+from modules.ctrl_center.wifi_dev import WifiDevice
 
 
 class WifiItem(Widget.Box):
-    def __init__(self, ap: Ap) -> None:
+    def __init__(self, ap) -> None:
         self.expand = Variable(False)
         self.ap = ap
 
         def on_detail_accept(_):
             self.expand.value = False
-            self.ap.connect_to(password=self.input.text)
+            print("connecting to ap")
+            self.ap.connect_with_password(password=self.input.text)
 
         self.input = Widget.Entry(hexpand=True, on_accept=on_detail_accept)
         detail = Widget.Revealer(
@@ -33,42 +34,28 @@ class WifiItem(Widget.Box):
         super().__init__(vertical=True, child=[item, detail])
 
     def on_click(self):
-        if self.ap.is_saved():
-            self.ap.connect_to()
-        else:
-            self.expand.value = not self.expand.value
-
-
-class WifiDev(WifiDevice):
-    def __init__(self, dev: WifiDevice) -> None:
-        super().__init__(dev._device, dev._client)
+        conn = self.ap.saved_conn()
+        if conn:
+            print("connecting to known wifi")
+            conn.connect_to()
+            return
+        self.expand.value = not self.expand.value
 
 
 class Wifi(QuickSetting):
     def __init__(self):
         network = NetworkService.get_default()
-        self.dev = WifiDev(network.wifi.devices[0])  # type: ignore
+        self.dev = WifiDevice(network.wifi.devices[0])  # type: ignore
 
         def get_label():
-            ap = self.dev._device.get_active_access_point()
-            if ap is None:
-                return "Not Connected"
-            return ap.get_ssid().get_data().decode("utf-8")
-
-        def get_aps():
-            aps = self.dev.access_points
-            conns = self.dev._device.get_available_connections()
-            ret = {}
-            for ap in aps:  # type: ignore
-                ret[ap.ssid] = Ap(ap)
-            for conn in conns:
-                if conn.get_id() in ret:
-                    ret[conn.get_id()].conn = conn
-
-            return ret
+            return (
+                self.dev.ap.ssid
+                if self.dev.state == "activated"
+                else self.dev.state.capitalize()
+            )
 
         def itemize(_):
-            return [WifiItem(ap) for ap in get_aps().values() if ap.ssid]
+            return [WifiItem(ap) for ap in self.dev.access_points if ap.ssid]
 
         super().__init__(
             name="Wi-Fi",
