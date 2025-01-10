@@ -1,10 +1,10 @@
 # pyright: reportIndexIssue=false, reportAttributeAccessIssue=false, reportFunctionMemberAccess=false
 
-from ignis.widgets import Widget
+from ignis.services.audio import AudioService
 from ignis.services.network import NetworkService
 from ignis.services.notifications import NotificationService
 from ignis.services.recorder import RecorderService
-from ignis.services.audio import AudioService
+from ignis.widgets import Widget
 
 network = NetworkService.get_default()
 notifications = NotificationService.get_default()
@@ -13,7 +13,7 @@ audio = AudioService.get_default()
 
 
 def indicator_icon(**kwargs):
-    return Widget.Icon(style="margin-right: 0.5rem;", css_classes=["unset"], **kwargs)
+    return Widget.Icon(style="margin-right: 0.5rem;", css_classes=["px-2"], **kwargs)
 
 
 def wifi_icon():

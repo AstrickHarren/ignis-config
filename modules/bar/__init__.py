@@ -2,6 +2,7 @@
 
 from ignis.utils import Utils
 from ignis.widgets import Widget
+from modules.bar.kb_layout import KeyboardLayout
 
 from .clock import clock
 from .indicator import wifi_icon
@@ -15,8 +16,10 @@ def bar(monitor_id: int = 0) -> Widget.Window:
         anchor=["left", "top", "right"],
         exclusivity="exclusive",
         child=Widget.CenterBox(
-            css_classes=["bar"],
+            css_classes=["bg", "py-2", "px-6"],
             center_widget=Widget.Box(child=[workspaces()]),
-            end_widget=Widget.Box(child=[wifi_icon(), clock(monitor_id)]),
+            end_widget=Widget.Box(
+                child=[wifi_icon(), KeyboardLayout(), clock(monitor_id)]
+            ),
         ),
     )

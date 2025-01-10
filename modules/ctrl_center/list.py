@@ -22,7 +22,7 @@ class Item(Widget.Button):
 
         super().__init__(
             hexpand=True,
-            css_classes=["hover-bg-3", "transition-all"],
+            css_classes=["hover:bg-3", "transition-all"],
             child=Widget.Box(
                 hexpand=True,
                 child=[

@@ -13,6 +13,7 @@ class BluetoothItem(Item):
             checked=dev.bind("connected"),
             label=dev.bind("name"),
             icon_name=dev.bind("icon_name"),
+            on_click=lambda _: dev.connect_to,
         )
 
 
@@ -25,7 +26,13 @@ class Bluetooth(QuickSetting):
             label=self.service.bind(
                 "connected_devices",
                 lambda devs: (
-                    f"{len(devs)} devices" if len(devs) > 0 else "Not connected"
+                    f"{len(devs)} devices"
+                    if len(devs) > 1
+                    else (
+                        devs[0].name
+                        if len(devs) == 1
+                        else self.service.state.capitalize()
+                    )
                 ),
             ),
             target=Widget.Scroll(

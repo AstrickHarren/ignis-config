@@ -26,6 +26,10 @@ def clock(monitor):
             window.set_monitor(monitor)
             window.visible = True
 
+    css = ["round", "bg-2", "px-4", "txt", "hover:bg-4", "transition-all"]
+    active = css + ["bg-4"]
+    active.remove("hover:bg-4")
+
     return Widget.Button(
         child=Widget.Box(
             child=[
@@ -34,9 +38,6 @@ def clock(monitor):
                 ),
             ],
         ),
-        css_classes=window.bind(
-            "visible",
-            lambda value: ["clock", "unset", "active"] if value else ["clock", "unset"],
-        ),
+        css_classes=window.bind("visible", lambda value: active if value else css),
         on_click=on_click,
     )
