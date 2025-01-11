@@ -61,6 +61,10 @@ $red: #ff3b30ff;
   background-color: $blue;
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
 // ==================== Font ==================== 
 
 .txt {
@@ -223,15 +227,41 @@ $red: #ff3b30ff;
   }
 }
 
+// ==================== Height ==================== 
+
+@for $i from 0 through 100 {
+  .h-#{$i} {
+    min-height: #{$i * 0.25}rem;
+  }
+
+  .h-#{$i}\.5 {
+    min-height: #{$i * 0.25 + 0.125}rem;
+  }
+}
+
 // ==================== Width ==================== 
 
-@for $i from 0 through 10 {
+@for $i from 0 through 100 {
   .w-#{$i} {
     min-width: #{$i * 0.25}rem;
   }
 
   .w-#{$i}\.5 {
     min-width: #{$i * 0.25 + 0.125}rem;
+  }
+}
+
+// ==================== Blur ==================== 
+
+.blur {
+  filter: blur(8px);
+}
+
+// ==================== Opacity ==================== 
+
+@for $i from 0 through 20 {
+  .opacity-#{$i * 5} {
+    opacity: #{$i * 0.05};
   }
 }
 

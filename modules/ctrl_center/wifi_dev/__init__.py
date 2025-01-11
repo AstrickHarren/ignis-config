@@ -1,3 +1,4 @@
+from time import time
 from typing import override
 
 from gi.repository import GObject  # type: ignore
@@ -66,6 +67,7 @@ class WifiDevice(IgnisWifiDevice):
         self.connecting_to = None
         self.pending_notification = False
         self.pause_scan = pause_scan
+        self.last_notify = time()
         pause_scan.connect("notify::value", lambda x, y: self.notify_pending())
 
     @GObject.Property
@@ -99,20 +101,25 @@ class WifiDevice(IgnisWifiDevice):
             self.notify("access_points")
             self.pending_notification = False
 
-    @override
-    def __add_access_point(self, _, ap, emit=True):
-        if emit and not self.pause_scan.value:
-            print("notifying access_points")
-            self.notify("access-points")
-            self.pending_notification = False
-        elif emit:
-            print("notification pending")
+    def try_notify(self):
+        if time() - self.last_notify < 1:
+            print("throttle notification")
             self.pending_notification = True
+            return
 
-    def __remove_access_point(self, device, ap):
         if not self.pause_scan.value:
-            self.notify("access-points")
+            print("notify")
+            self.last_notify = time()
+            self.notify("access_points")
             self.pending_notification = False
         else:
             print("notification pending")
             self.pending_notification = True
+
+    @override
+    def __add_access_point(self, _, ap, emit=True):
+        if emit:
+            self.try_notify()
+
+    def __remove_access_point(self, device, ap):
+        self.try_notify()

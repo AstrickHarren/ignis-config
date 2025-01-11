@@ -1,12 +1,13 @@
 # pyright: reportIndexIssue=false, reportAttributeAccessIssue=false
 
-from ignis.widgets import Widget
 from ignis.services.hyprland import HyprlandService
+from ignis.widgets import Widget
 
 hyprland = HyprlandService.get_default()
 
+
 def workspace_btn(workspace: dict):
-    css = ["workspace", "unset"]; 
+    css = ["workspace"]
     if workspace["id"] == hyprland.active_workspace["id"]:
         css.append("active")
     elif workspace["monitorID"] != hyprland.active_workspace["monitorID"]:
@@ -18,6 +19,7 @@ def workspace_btn(workspace: dict):
         halign="start",
         valign="center",
     )
+
 
 def scroll_workspaces(direction: str) -> None:
     current = hyprland.active_workspace["id"]
@@ -35,11 +37,10 @@ def workspaces():
     return Widget.EventBox(
         on_scroll_up=lambda x: scroll_workspaces("up"),
         on_scroll_down=lambda x: scroll_workspaces("down"),
-        css_classes=["workspaces"],
+        css_classes=["bg-3", "round-lg", "p-2"],
         visible=hyprland.is_available,
         child=hyprland.bind(
             "workspaces",
             transform=lambda value: [workspace_btn(i) for i in value],
         ),
     )
-

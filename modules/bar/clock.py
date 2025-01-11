@@ -26,7 +26,7 @@ def clock(monitor):
             window.set_monitor(monitor)
             window.visible = True
 
-    css = ["round", "bg-2", "px-4", "txt", "hover:bg-4", "transition-all"]
+    css = ["round-lg", "bg-2", "px-4", "txt", "hover:bg-4", "transition-all"]
     active = css + ["bg-4"]
     active.remove("hover:bg-4")
 

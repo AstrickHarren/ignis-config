@@ -21,7 +21,7 @@
             owner = "linkfrg";
             repo = "ignis";
             rev = "main";
-            sha256 = "zSWkckB2XDJuVbXrvyj/FGbI6AQwnbKRs6RV7y56jH0=";
+            sha256 = "63cG7sAlUH9CVq9zv5g2+QAP7iyDF4k3EHaK8ydGbsI=";
           };
 
           installPhase = ''

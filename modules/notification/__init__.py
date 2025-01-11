@@ -18,7 +18,7 @@ class Popup(Widget.Box):
         self._window = window
 
         widget = NotificationWidget(notification)
-        widget.css_classes = ["notification-popup"]
+        widget.css_classes = ["w-100", "p-10", "m-10", "round-lg", "bg-4"]
         self._inner = Widget.Revealer(transition_type="slide_left", child=widget)
         self._outer = Widget.Revealer(transition_type="slide_down", child=self._inner)
         super().__init__(child=[self._outer], halign="end")

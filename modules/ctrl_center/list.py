@@ -14,7 +14,7 @@ class Item(Widget.Button):
     ):
         unchecked = Binding(
             checked.target,  # type: ignore
-            checked.target_property,  # type: ignore
+            checked.target_properties,  # type: ignore
             lambda x: (
                 not checked.transform(x) if checked.transform else not x  # type: ignore
             ),
