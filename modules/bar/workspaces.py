@@ -7,7 +7,7 @@ hyprland = HyprlandService.get_default()
 
 
 def workspace_btn(workspace: dict):
-    css = ["workspace"]
+    css = ["workspace", "transition-all"]
     if workspace["id"] == hyprland.active_workspace["id"]:
         css.append("active")
     elif workspace["monitorID"] != hyprland.active_workspace["monitorID"]:
@@ -37,7 +37,7 @@ def workspaces():
     return Widget.EventBox(
         on_scroll_up=lambda x: scroll_workspaces("up"),
         on_scroll_down=lambda x: scroll_workspaces("down"),
-        css_classes=["bg-3", "round-lg", "p-2"],
+        css_classes=["bg-3", "round-lg", "p-2", "transition-all"],
         visible=hyprland.is_available,
         child=hyprland.bind(
             "workspaces",

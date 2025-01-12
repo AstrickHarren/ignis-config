@@ -5,45 +5,48 @@ $indigo: #5856d6ff;
 $orange: #ff9500ff;
 $pink: #ff2d55ff;
 $purple: #af52deff;
-$red: #ff3b30ff;
+$red: rgb(255, 69, 58);
+
+$gray: rgb(142, 142, 147);
+$gray-2: rgb(99, 99, 102);
+$gray-3: rgb(72, 72, 74);
+$gray-4: rgb(58, 58, 60);
+$gray-5: rgb(44, 44, 46);
+$gray-6: rgb(28, 28, 30);
 
 // ==================== Background ==================== 
 
 .bg {
-  background-color: $bg
-}
-
-.bg-0 {
-  background-color: #000000;
+  background-color: $gray-6
 }
 
 .bg-2 {
-  background-color: #1c1c1e;
+  background-color: $gray-5;
 }
 
 .hover\:bg-2 {
     &:hover {
-      background-color: #1c1c1e;
+      background-color: $gray-5;
     }
 }
 
 .bg-3 {
-  background-color: #2c2c2e;
+  background-color: $gray-4;
 }
 
 .hover\:bg-3 {
     &:hover {
-      background-color: #2c2c2e;
+      background-color: $gray-4;
     }
 }
 
 .bg-4 {
-    background-color: #45475a;
+    background-color: $gray-3;
 }
 
 .hover\:bg-4 {
     &:hover {
-      background-color: #45475a;
+      background-color: $gray-3;
     }
 }
 
@@ -83,8 +86,38 @@ $red: #ff3b30ff;
   color: #ebebf52e;
 }
 
+.txt-red {
+  color: $red;
+}
+
+.hover\:txt {
+  &:hover {
+    color: #ffffff;
+  }
+}
+
 .bold {
   font-weight: bold;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 // ==================== Border ==================== 

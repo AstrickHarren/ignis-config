@@ -11,7 +11,7 @@ class Toggle:
     def __init__(
         self,
         name: str,
-        target: BaseWidget,
+        target: BaseWidget | None = None,
         is_opened: Variable | None = None,
     ) -> None:
         self.name = name
@@ -79,7 +79,7 @@ class Panel(Widget.Box):
         self.opened_menu = Variable()
         self.summary = Widget.Box(
             vertical=True,
-            css_classes=["bg-3", "round-lg", "p-3", "mb-10"],
+            css_classes=["bg-2", "round-lg", "p-3", "mb-10"],
             child=[t.make_toggle(self.toggle_detail) for t in toggles],
         )
         self.detail = [t.content(self.opened_menu) for t in toggles]

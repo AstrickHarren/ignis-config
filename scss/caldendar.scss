@@ -1,0 +1,57 @@
+calendar {
+  & header {
+    @extend .p-3;
+    @extend .pb-5;
+  }
+
+  & .image-button {
+    @extend .txt-3;
+    @extend .hover\:txt;
+    @extend .transition-all;
+  }
+
+  & .month {
+    @extend .bold;
+    @extend .txt-red;
+    @extend .m-2;
+  }
+
+  & .year {
+    @extend .mx-4;
+  }
+
+  & .day-name {
+    @extend .txt-2;
+  }
+
+  & grid {
+    & .day-number {
+      @extend .txt;
+      @extend .bold;
+      @extend .w-10;
+      @extend .h-13;
+      @extend .mx-3;
+      @extend .my-2;
+      @extend .round-full;
+      @extend .hover\:bg-4;
+      @extend .transition-all;
+
+      &:checked {
+        @extend .bg-red;
+      }
+
+      &:selected {
+        @extend .bg-4;
+      }
+    }
+
+    & .other-month {
+      @extend .txt-3;
+      font-weight: normal;
+    }
+
+    & label {
+      // background-color: red;
+    }
+  }
+}

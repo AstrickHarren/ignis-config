@@ -36,6 +36,7 @@ class Bluetooth(QuickSetting):
                 ),
             ),
             target=Widget.Scroll(
+                css_classes=["mb-10"],
                 height_request=400,
                 child=Widget.Box(
                     vertical=True,

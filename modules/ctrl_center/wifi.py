@@ -93,6 +93,7 @@ class Wifi(QuickSetting):
             icon_name=self.dev.ap.bind("icon-name"),  # type: ignore
             label=self.dev.ap.bind("icon-name", lambda _: get_label()),  # type: ignore
             target=Widget.Scroll(
+                css_classes=["mb-10"],
                 height_request=400,
                 child=Widget.Box(
                     vertical=True,
