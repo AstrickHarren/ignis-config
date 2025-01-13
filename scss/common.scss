@@ -174,8 +174,12 @@ $gray-6: rgb(28, 28, 30);
   border-style: solid;
 }
 
+.border-red {
+  border-color: $red;
+}
+
 .border-separator {
-  border-color: #54545899;
+  border-color: $gray-2;
 }
 
 @for $i from 0 through 4 {

@@ -107,6 +107,48 @@
     @extend .bg-white;
 }
 
+// .battery-slider {
+//   @extend .round;
+//   @extend .border-solid;
+//   @extend .border-red;
+//   @extend .border-2;
+//   @extend .h-4;
+//   padding: 0 0.25rem 0.25rem 0;
+// }
+
+.battery-slider trough {
+  @extend .border-solid;
+  @extend .border-separator;
+  @extend .round-lg;
+  border-width: 2px;
+}
+
+.battery-slider trough,
+.battery-slider trough highlight {
+    @extend .bg;
+    @extend .w-10;
+    @extend .round;
+    margin: .25rem;
+    min-height: 1rem;
+}
+
+.battery-slider trough,
+.battery-slider trough highlight {
+    @extend .bg;
+}
+
+
+.battery-slider trough highlight {
+    @extend .bg-white;
+}
+
+.battery-tip {
+  color: $gray-2;
+  background-color: $gray-2; 
+  @extend .w-1;
+  @extend .h-2;
+}
+
 .material-slider-icon {
     padding: 0.25rem;
     min-width: 1.5rem;
