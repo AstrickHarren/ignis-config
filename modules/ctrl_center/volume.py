@@ -7,6 +7,7 @@ from ignis.variable import Variable
 from ignis.widgets import Widget
 from ignis.widgets.arrow_button import ArrowButton
 from modules.ctrl_center.ctrl_panel import PanelToggle, Toggle
+from modules.ctrl_center.list import Item
 
 AUDIO_TYPES = {
     "speaker": {"menu_icon": "audio-headphones-symbolic", "menu_label": "Sound Output"},
@@ -16,20 +17,33 @@ AUDIO_TYPES = {
     },
 }
 
+audio = AudioService.get_default()
+
+
+class DeviceItem(Item):
+    def __init__(self, stream: Stream, _type: Literal["speaker", "microphone"]):
+        super().__init__(
+            checked=stream.bind("is_default"),
+            label=stream.description,
+            icon_name="audio-card-symbolic",
+            on_click=lambda _: setattr(audio, _type, stream),
+        )
+
 
 class VolumeSlider(Toggle):
     def __init__(self, _type: Literal["speaker", "microphone"]):
         audio = AudioService.get_default()
         stream = getattr(audio, _type)
-        is_opened = Variable(False)
+        self.is_opened = Variable(False)
 
         self._type = _type
         self.icon = Widget.Button(
+            halign="start",
             child=Widget.Icon(
                 image=stream.bind("icon_name"),
                 pixel_size=18,
             ),
-            css_classes=["material-slider-icon", "unset", "hover-surface"],
+            css_classes=["px-4", "txt-bg-4"],
             on_click=lambda x: stream.set_is_muted(not stream.is_muted),
         )
 
@@ -47,31 +61,41 @@ class VolumeSlider(Toggle):
             halign="end",
             hexpand=True,
             pixel_size=20,
-            rotated=is_opened.bind("value"),
+            rotated=self.is_opened.bind("value"),
         )
 
         super().__init__(
             "Volume",
-            target=Widget.Label(label="hello"),
-            is_opened=is_opened,
+            target=Widget.Scroll(
+                css_classes=["mb-10"],
+                height_request=200,
+                child=Widget.Box(
+                    vertical=True,
+                    setup=lambda self: audio.connect(
+                        f"{_type}-added",
+                        lambda x, stream: self.append(DeviceItem(stream, _type)),
+                    ),
+                ),
+            ),
+            is_opened=self.is_opened,
         )
 
     def make_toggle(self, toggler) -> BaseWidget:
         return Widget.Box(
-            vertical=True,
             hexpand=True,
+            css_classes=["p-2"],
             child=[
-                Widget.Box(
-                    child=[
-                        self.icon,
-                        self.scale,
-                        ArrowButton(
-                            arrow=self.arrow, on_click=lambda _: toggler(self.name)
-                        ),
-                    ]
+                Widget.Overlay(
+                    css_classes=["p-4"],
+                    hexpand=True,
+                    overlays=[self.icon],
+                    child=self.scale,
+                ),
+                Widget.Button(
+                    child=self.arrow,
+                    on_click=lambda _: toggler(self.name),
                 ),
             ],
-            css_classes=[f"volume-mainbox-{self._type}"],
         )
 
 

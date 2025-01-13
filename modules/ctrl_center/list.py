@@ -4,6 +4,16 @@ from ignis.services.network import WifiAccessPoint
 from ignis.widgets import Widget
 
 
+def truncate_label(label, max_len=40):
+    if isinstance(label, Binding):
+        label._transform = lambda l: truncate_label(l, max_len)
+        return label
+
+    if len(label) > max_len:
+        return label[: max_len - 1] + "..."
+    return label
+
+
 class Item(Widget.Button):
     def __init__(
         self,
@@ -45,7 +55,7 @@ class Item(Widget.Button):
                         hexpand=True,
                         child=[
                             Widget.Label(
-                                label=label,
+                                label=truncate_label(label),
                                 halign="start",
                                 css_classes=["txt"],
                             ),

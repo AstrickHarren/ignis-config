@@ -68,6 +68,10 @@ $gray-6: rgb(28, 28, 30);
   background-color: transparent;
 }
 
+.bg-white {
+  background-color: #ffffffbb;
+}
+
 // ==================== Font ==================== 
 
 .txt {
@@ -88,6 +92,26 @@ $gray-6: rgb(28, 28, 30);
 
 .txt-red {
   color: $red;
+}
+
+.txt-bg {
+  color: $gray-6
+}
+
+.txt-bg-2 {
+  color: $gray-5
+}
+
+.txt-bg-3 {
+  color: $gray-4
+}
+
+.txt-bg-4 {
+  color: $gray-3
+}
+
+.txt-bg-5 {
+  color: $gray-2
 }
 
 .hover\:txt {

@@ -97,14 +97,14 @@
 
 .material-slider trough,
 .material-slider trough highlight {
-    background-color: $surface;
-    border-radius: 1rem;
-    min-height: 1rem;
+    @extend .bg;
+    @extend .h-10;
+    @extend .round-full;
 }
 
 
 .material-slider trough highlight {
-    background-color: $primary;
+    @extend .bg-white;
 }
 
 .material-slider-icon {
