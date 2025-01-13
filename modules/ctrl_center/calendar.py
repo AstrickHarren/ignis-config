@@ -3,11 +3,12 @@ import datetime
 from gi.repository import GLib
 
 from ignis.utils import Utils
+from ignis.variable import Variable
 from ignis.widgets import Widget
 
 
 class Calendar(Widget.Box):
-    def on_change_month(self):
+    def on_change_page(self):
         date = self.cal.get_date()
         year = date.get_year()
         month = date.get_month()
@@ -15,8 +16,10 @@ class Calendar(Widget.Box):
 
         if now.year == year and now.month == month:
             self.cal.mark_day(now.day)
+            self.back_to_today_visible.value = False
         else:
             self.cal.unmark_day(now.day)
+            self.back_to_today_visible.value = True
 
     def __init__(self) -> None:
         self.cal = Widget.Calendar(
@@ -24,6 +27,7 @@ class Calendar(Widget.Box):
             show_day_names=True,
             show_heading=True,
         )
+        self.back_to_today_visible = Variable(False)
 
         day_names = ["S", "M", "T", "W", "T", "F", "S"]
         month_names = [
@@ -49,14 +53,44 @@ class Calendar(Widget.Box):
         for month, name in zip(months, month_names):
             month.set_text(name)
 
-        self.cal.connect("next_month", lambda x: self.on_change_month())
-        self.cal.connect("next_year", lambda x: self.on_change_month())
-        self.cal.connect("prev_month", lambda x: self.on_change_month())
-        self.cal.connect("prev_year", lambda x: self.on_change_month())
-        self.on_change_month()
+        self.cal.connect("next_month", lambda x: self.on_change_page())
+        self.cal.connect("next_year", lambda x: self.on_change_page())
+        self.cal.connect("prev_month", lambda x: self.on_change_page())
+        self.cal.connect("prev_year", lambda x: self.on_change_page())
+        self.on_change_page()
+
+        back_to_today_btn = Widget.Button(
+            halign="end",
+            css_classes=[
+                "mt-5",
+                "txt-red",
+                "hover:bg-3",
+                "p-2",
+                "round",
+                "transition-all",
+            ],
+            on_click=lambda _: back_to_today(),
+            child=Widget.Label(label="Today"),
+        )
+
+        def back_to_today():
+            self.cal.select_day(GLib.DateTime.new_now_local())
+            self.on_change_page()
 
         super().__init__(
             hexpand=True,
-            css_classes=["round", "bg-2", "p-3"],
-            child=[self.cal],
+            vertical=True,
+            child=[
+                Widget.Box(
+                    css_classes=["round", "bg-2", "p-3"],
+                    child=[
+                        self.cal,
+                    ],
+                ),
+                Widget.Revealer(
+                    child=back_to_today_btn,
+                    transition_type="crossfade",
+                    reveal_child=self.back_to_today_visible.bind("value"),
+                ),
+            ],
         )
