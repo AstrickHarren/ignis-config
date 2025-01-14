@@ -141,6 +141,10 @@
   @extend .bg-red;
 }
 
+.battery-slider-charging trough highlight {
+  @extend .bg-green;
+}
+
 .battery-tip {
   color: $gray-2;
   background-color: $gray-2; 

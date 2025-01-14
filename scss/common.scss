@@ -64,6 +64,10 @@ $gray-6: rgb(28, 28, 30);
   background-color: $blue;
 }
 
+.bg-green {
+  background-color: $green;
+}
+
 .bg-transparent {
   background-color: transparent;
 }
@@ -142,6 +146,36 @@ $gray-6: rgb(28, 28, 30);
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+@for $i from 1 through 10 {
+  .text-#{$i}xl {
+    font-size: #{$i * 0.25 + 1.125}rem;
+    line-height: #{$i * 0.25 + 1.75}rem;
+  }
+}
+
+// ==================== Border ==================== 
+
+.icon-sm {
+    -gtk-icon-transform: scale(0.9);
+}
+
+.icon-base {
+    -gtk-icon-transform: scale(1);
+}
+
+.icon-lg {
+    -gtk-icon-transform: scale(1.1);
+}
+
+.icon-xl {
+    -gtk-icon-transform: scale(1.2);
 }
 
 // ==================== Border ==================== 
