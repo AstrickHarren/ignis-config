@@ -121,25 +121,24 @@
   @extend .border-separator;
   @extend .round-lg;
   border-width: 2px;
+
+  @extend .w-10;
+  @extend .round;
+  padding: .24rem .15rem .24rem .2rem;
+  margin: .25rem;
+  min-height: 1rem;
 }
 
-.battery-slider trough,
 .battery-slider trough highlight {
-    @extend .bg;
-    @extend .w-10;
-    @extend .round;
-    margin: .25rem;
-    min-height: 1rem;
+  @extend .round;
 }
 
-.battery-slider trough,
-.battery-slider trough highlight {
-    @extend .bg;
+.battery-slider-normal trough highlight {
+  @extend .bg-white;
 }
 
-
-.battery-slider trough highlight {
-    @extend .bg-white;
+.battery-slider-critical trough highlight {
+  @extend .bg-red;
 }
 
 .battery-tip {

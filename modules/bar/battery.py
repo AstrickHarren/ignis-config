@@ -6,10 +6,21 @@ upower = UPowerService.get_default()
 
 class BatteryItem(Widget.Box):
     def __init__(self, device: UPowerDevice):
+        def css_classes(percent):
+            base = ["battery-slider"]
+            normal = "battery-slider-normal"
+            critical = "battery-slider-critical"
+            healthy = "battery-slider-healthy"
+
+            if percent <= 20:
+                return base + [critical]
+            return base + [normal]
+
         self.scale = Widget.Scale(
-            css_classes=["battery-slider"],
-            value=100,
-            step=5,
+            css_classes=device.bind("percent", css_classes),
+            value=device.bind("percent"),
+            step=1,
+            max=100,
             hexpand=True,
             sensitive=False,
         )
