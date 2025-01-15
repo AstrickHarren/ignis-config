@@ -3,7 +3,17 @@ import os
 from gi.repository import GdkPixbuf
 
 import ignis.variable
+from ignis.gobject import Binding
 from ignis.widgets import Widget
+
+def truncate_label(label, max_len=40):
+    if isinstance(label, Binding):
+        label._transform = lambda l: truncate_label(l, max_len)
+        return label
+    if len(label) > max_len:
+        return label[: max_len - 1] + "..."
+    return label
+
 
 
 class Svg(Widget.Icon):
