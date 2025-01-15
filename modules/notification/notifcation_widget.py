@@ -15,7 +15,6 @@ class NormalLayout(Widget.Box):
             pixel_size=48,
             halign="end",
             valign="center",
-            css_classes=["h-100"],
         )
 
         self.detail = Widget.Box(
