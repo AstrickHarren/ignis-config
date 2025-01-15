@@ -5,32 +5,9 @@ from gi.repository import GdkPixbuf
 import ignis
 from ignis.services.upower import UPowerDevice, UPowerService
 from ignis.widgets import Widget
+from modules.common import Svg, Variable
 
 upower = UPowerService.get_default()
-
-
-def flash_icon():
-    svg = os.path.join(os.path.dirname(__file__), "../../svg/flash.svg")
-    svg = open(svg, "r").read()
-    loader = GdkPixbuf.PixbufLoader()
-    loader.write(svg.encode())
-    loader.close()
-    return loader.get_pixbuf()
-
-
-class Variable(ignis.variable.Variable):
-    def __init__(self, refresh) -> None:
-        self.refresh = refresh
-        super().__init__(refresh())
-
-    def subscribe(self, obj, signal):
-        def call_back(*args):
-            self.value = self.refresh()
-
-        obj.connect(signal, call_back)
-
-    def set_value(self, val):
-        self.value = val
 
 
 class BatteryItem(Widget.Box):
@@ -69,13 +46,13 @@ class BatteryItem(Widget.Box):
         connected_to_power.subscribe(device, "notify::charged")
 
         self.charging_icon = Widget.Revealer(
-            child=Widget.Icon(image=flash_icon(), css_classes=["icon-sm"]),
+            child=Svg("flash", css_classes=["icon-sm"]),
             reveal_child=connected_to_power.bind("value"),
             transition_type="crossfade",
         )
 
         super().__init__(
-            css_classes=["mx-9"],
+            css_classes=["mr-7", "ml-2"],
             setup=lambda self: device.connect("removed", lambda x: self.unparent()),
             child=[
                 self.label,

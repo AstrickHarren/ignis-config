@@ -13,7 +13,9 @@ audio = AudioService.get_default()
 
 
 def indicator_icon(**kwargs):
-    return Widget.Icon(style="margin-right: 0.5rem;", css_classes=["px-2"], **kwargs)
+    return Widget.Icon(
+        style="padding-bottom: 0.00rem;", css_classes=["px-2", "ml-3", "mr-2"], **kwargs
+    )
 
 
 def wifi_icon():

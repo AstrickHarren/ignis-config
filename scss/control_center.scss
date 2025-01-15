@@ -107,15 +107,6 @@
     @extend .bg-white;
 }
 
-// .battery-slider {
-//   @extend .round;
-//   @extend .border-solid;
-//   @extend .border-red;
-//   @extend .border-2;
-//   @extend .h-4;
-//   padding: 0 0.25rem 0.25rem 0;
-// }
-
 .battery-slider trough {
   @extend .border-solid;
   @extend .border-separator;

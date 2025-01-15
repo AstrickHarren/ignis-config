@@ -9,8 +9,9 @@ class KeyboardLayout(Widget.Button):
         super().__init__(
             css_classes=[
                 "mx-2",
-                "px-2",
+                "pt-0.5",
                 "py-2",
+                "px-2",
                 "hover:bg-4",
                 "transition-all",
                 "round",
